@@ -10,6 +10,8 @@ source ~/.git-prompt.sh
 # User specific aliases and functions
 export PS1='\D{[%T]} \[\033[01;32m\] \u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;033m\]$(__git_ps1)\[\033[00m\] $'
 
+# Genome cat :D
+catg() { cat $1 | grep -v ">" | GREP_COLOR="01;34" egrep -i --color=always "C" | GREP_COLOR="01;32" egrep -i --color=always "A" | GREP_COLOR="01;31" egrep -i --color=always "T" | GREP_COLOR="01;33" egrep -i --color=always "G"; }
 
 # Colors for ls
 alias ll='ls -l --color=auto'
