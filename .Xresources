@@ -1,0 +1,61 @@
+! URxvt
+
+URxvt.scrollBar: false
+!URxvt.font: xft:Monofur\ for\ Powerline:style=Regular:size=12,\
+!            xft:Noto\ Sans\ Mono:style=Regular:size=12;
+
+urxvt*font: xft:DejaVu Sans Mono:style=Book:size=12, \
+            xft:WenQuanYi Bitmap Song:size=8, \
+            xft:FreeSerif:style=Regular, \
+            xft:unifont:style=Medium:antialias=false
+
+URxvt.depth: 32
+URxvt.background: rgba:2600/3200/3800/eeee
+URxvt.internalBorder: 5
+URxvt.borderColor: rgba:2600/3200/3800/cccc
+URxvt*boldMode: on
+URxvt*colorMode:    on
+URxvt*colorBDMode:  on
+URxvt*colorULMode:  on
+URxvt*underLine:    on
+URxvt*secondaryScroll:  off
+Urxvt*secondaryWheel:   on
+! transparency
+!URxvt.transparent: true
+!URxvt.tintColor: #2d2d2d
+URxvt.shading: 40
+URxvt.blurRadius: 30
+Xft.antialias: 1
+! rofi
+
+! black
+*.color0:       #1d1f21
+*.color8:       #969896
+
+! red
+*.color1:       #cc6666
+*.color9:       #cc6666
+
+! green
+*.color2:       #b5bd68
+*.color10:      #b5bd68
+
+! yellow
+*.color3:       #f0c674
+*.color11:      #f0c674
+
+! blue
+*.color4:       #81a2be
+*.color12:      #81a2be
+
+! magenta
+*.color5:       #b294bb
+*.color13:      #b294bb
+
+! cyan
+*.color6:       #8abeb7
+*.color14:      #8abeb7
+
+! white
+*.color7:       #c5c8c6
+*.color15:      #fffff
