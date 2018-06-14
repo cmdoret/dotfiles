@@ -54,3 +54,4 @@ nmap <Space> <Plug>RDSendLine
 hi Normal ctermbg=None 
 hi LineNr ctermfg=None ctermbg=None
 let g:airline_theme='deus'
+set clipboard=unnamedplus
