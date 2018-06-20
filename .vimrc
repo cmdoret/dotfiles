@@ -1,57 +1,96 @@
+" Note: Better in NeoVim: For some reason, regular vim has a ~2s delay when toggling 
+" absolute and relative line numbers. This does not happen in Neovim.
+
+
+" ############
+" # PACKAGES #
+" ############
+
+" package manager
 execute pathogen#infect()
 
-syntax on " enable syntax highlighting
-colorscheme monokai-soda
+" packages configuration
+map <C-n> :NERDTreeToggle<CR> " File navigator
+let g:airline_theme='deus' " colored status bar
 
+" ####################
+" # EDITOR BEHAVIOUR #
+" ####################
+
+" toggle absolut/hybrid line numbers between i and n modes
+set number " show line numbers
+set relativenumber
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+
+" tab indentation behaviour
 set tabstop=4 " tabs show as space
 set softtabstop=4 " add spaces instead of tab when editing
 set expandtab " tab becomes spaces
-
-set number " show line numbers
-set showcmd " show last command used in bottom bar
-set cursorline " highlight current line in file
 filetype indent on " file type specific indent
-set wildmenu " visual autocomplete menu
 
-set showmatch " highlight matching ({[]})
-set incsearch
-set hlsearch
-
+" fold behaviour
 set foldenable " allows to use code folding
 set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " maximum 10 nested folds
 nnoremap <space> za " space open/close folds
 set foldmethod=indent " fold  based on indentation
 
+" mouse
+set mouse=a
+
+" #############
+" # GRAPHICAL #
+" #############
+
+" text/bg colors
+syntax on " enable syntax highlighting
+colorscheme monokai-soda
+" http://vim.wikia.com/wiki/Fix_syntax_highlighting
+syntax sync minlines=200
+set synmaxcol=128
+hi Normal ctermbg=None 
+hi LineNr ctermfg=None ctermbg=None
+set clipboard=unnamedplus
+
+" command menu/bar
+set showcmd " show last command used in bottom bar
+set wildmenu " visual autocomplete menu
+
+" highlighting
+set cursorline " highlight current line in file
+set showmatch " highlight matching ({[]})
+set incsearch " Show where the next pattern is as you type it:
+set hlsearch " Highlight the last searched pattern:
+
+" #########################
+" # PROGRAMMING UTILITIES #
+" #########################
+
+" run python script
+nnoremap <buffer> <F10> :w<cr> :exec '!python3' shellescape(@%, 1)<cr>
+
+" render markdown into firefox (Linux only)
+" Open tab
+map <S-F5> :w!<CR>:w!/home/varogh/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html5 --css=/home/varogh/.local/share/markdown-css/github.css --highlight-style=haddock --self-contained --smart -o /home/varogh/tmp/vim-markdown.html /home/varogh/tmp/vim-markdown.md<CR>:!firefox /home/varogh/tmp/vim-markdown.html > /dev/null 2>&1 &<CR><CR>
+" reload tab
+map <F5> :w!<CR>:w!/home/varogh/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html5 --css=/home/varogh/.local/share/markdown-css/github.css --highlight-style=haddock --self-contained --smart -o /home/varogh/tmp/vim-markdown.html /home/varogh/tmp/vim-markdown.md<CR>:!xdotool search --name "Mozilla Firefox" key --clearmodifiers "CTRL+R" & <CR><CR>
+
+" ##################
+" # MISC SHORTCUTS #
+" ##################
+
 let mapleader=";" " leader is comma
 let maplocalleader=","
 
-map <C-n> :NERDTreeToggle<CR>
-set mouse=a
-set ttymouse=xterm2
+" #######################
+" # NOT NVIM-COMPATIBLE #
+" #######################
 
-" Highlight the last searched pattern:
-set hlsearch
-
-" Show where the next pattern is as you type it:
-set incsearch
-
-" vim and R
-
-" Use Ctrl+Space to do omnicompletion:
-set omnifunc=syntaxcomplete#Complete
-if has("gui_running")
-    inoremap <C-Space> <C-x><C-o>
-else
-    inoremap <Nul> <C-x><C-o>
-endif
-
-" Press the space bar to send lines and selection to R:
-vmap <Space> <Plug>RDSendSelection
-nmap <Space> <Plug>RDSendLine
+" set ttymouse=xterm2
 
 " Graphical stuff
-hi Normal ctermbg=None 
-hi LineNr ctermfg=None ctermbg=None
-let g:airline_theme='deus'
-set clipboard=unnamedplus
+
