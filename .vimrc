@@ -10,8 +10,25 @@ execute pathogen#infect()
 
 " packages configuration
 map <C-n> :NERDTreeToggle<CR> " File navigator
-let g:airline_theme='deus' " colored status bar
-
+let g:airline_theme='wombat' " colored status bar
+let g:airline_powerline_fonts = 1
+" syntastic styling
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_enable_highlighting=0
+let g:syntastic_enable_signs=1
+highlight SyntasticErrorLine guibg=#550000
+highlight SyntasticWarningLine guibg=#331d1e
+" syntastic linters settings
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_html_checkers = ['htmlhint']
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_javascript_checkers = ['jslint']
+let g:syntastic_r_checkers = ['lintr']
 " ####################
 " # EDITOR BEHAVIOUR #
 " ####################
@@ -32,7 +49,6 @@ set clipboard=unnamedplus " Shares OS and vim clipboard
 set tabstop=4 " tabs show as space
 set softtabstop=4 " add spaces instead of tab when editing
 set expandtab " tab becomes spaces
-filetype indent on " file type specific indent
 
 " fold behaviour
 set foldenable " allows to use code folding
@@ -40,10 +56,20 @@ set foldlevelstart=10 " open most folds by default
 set foldnestmax=10 " maximum 10 nested folds
 nnoremap <space> za " space open/close folds
 set foldmethod=indent " fold  based on indentation
+" Filetype specific indenting behaviour
+filetype on
+filetype plugin on
+filetype indent on " file type based indentation
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0 " real tabs in makefile
+" autocmd FileType html,xhtml,css,xml,xslt set shiftwidth=2 softtabstop=2 " fixed indentation for web
+autocmd FileType vim,lua,nginx set shiftwidth=2 softtabstop=2 " two space indentation for some files
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS " auto-indent braces in CSS
+" autocmd FileType xhtml,html set omnifunc=htmlcomplete#CompleteTags " add completion for xHTML
 
 " performance
 set lazyredraw " do not redraw screen during macros. makes vim slightly faster
 set synmaxcol=128 " limiting syntax highlighting to 128 columns can make vim faster
+
 
 
 " mouse
@@ -55,7 +81,7 @@ set mouse=a
 
 " text/bg colors
 syntax on " enable syntax highlighting
-colorscheme monokai-soda
+colorscheme nord
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
 syntax sync minlines=200
 hi Normal ctermbg=None 
@@ -90,6 +116,7 @@ map <F5> :w!<CR>:w!/home/varogh/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -
 
 let mapleader="," " leader is comma
 let maplocalleader=";"
+
 " #######################
 " # NOT NVIM-COMPATIBLE #
 " #######################
