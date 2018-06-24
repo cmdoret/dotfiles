@@ -16,10 +16,16 @@ let g:airline_powerline_fonts = 1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-let g:syntastic_enable_highlighting=0
+let g:syntastic_enable_highlighting=1
 let g:syntastic_enable_signs=1
-highlight SyntasticErrorLine guibg=#550000
-highlight SyntasticWarningLine guibg=#331d1e
+" Syntastic signs
+
+let g:syntastic_error_symbol = "E>"
+let g:syntastic_warning_symbol = "W>"
+
+
+" Syntastic lines
+highlight SyntasticErrorLine guibg=#3A0505
 " syntastic linters settings
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -29,6 +35,19 @@ let g:syntastic_html_checkers = ['htmlhint']
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_javascript_checkers = ['jslint']
 let g:syntastic_r_checkers = ['lintr']
+" toggle syntastic location list
+map <F8> <ESC>:call SyntasticToggle()<CR>
+
+let g:syntastic_is_open = 0  
+function! SyntasticToggle()
+if g:syntastic_is_open == 1
+    lclose
+    let g:syntastic_is_open = 0 
+else
+    Errors
+    let g:syntastic_is_open = 1 
+endif
+endfunction
 " ####################
 " # EDITOR BEHAVIOUR #
 " ####################
@@ -93,29 +112,32 @@ set wildmenu " visual autocomplete menu
 
 " highlighting
 set cursorline " highlight current line in file
+highlight CursorLineNR ctermfg=117
 set showmatch " highlight matching ({[]})
 set incsearch " Show where the next pattern is as you type it:
 set hlsearch " Highlight the last searched pattern:
-
-" #########################
-" # PROGRAMMING UTILITIES #
-" #########################
-
-" run python script
-nnoremap <buffer> <F10> :w<cr> :exec '!python3' shellescape(@%, 1)<cr>
-
-" render markdown into firefox (Linux only)
-" Open tab (note F17 is the literal for shift+F5)
-map <F17> :w!<CR>:w!/home/varogh/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html5 --css=/home/varogh/.local/share/markdown-css/github.css --highlight-style=haddock --self-contained --smart -o /home/varogh/tmp/vim-markdown.html /home/varogh/tmp/vim-markdown.md<CR>:!firefox /home/varogh/tmp/vim-markdown.html > /dev/null 2>&1 &<CR><CR>
-" reload tab
-map <F5> :w!<CR>:w!/home/varogh/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html5 --css=/home/varogh/.local/share/markdown-css/github.css --highlight-style=haddock --self-contained --smart -o /home/varogh/tmp/vim-markdown.html /home/varogh/tmp/vim-markdown.md<CR>:!xdotool search --name "Mozilla Firefox" key --clearmodifiers "CTRL+R" & <CR><CR>
-
+hi Search cterm=None ctermbg=117
+" Making colors of syntactic errors/warnings less intrusive
+hi Todo ctermbg=None ctermfg=yellow
+hi Error ctermbg=none ctermfg=red
+hi SpellBad ctermbg=None ctermfg=red
+hi SpellCap ctermbg=None ctermfg=yellow
+hi SyntasticErrorSign ctermbg=None ctermfg=red
+hi SyntasticWarningSign ctermbg=None ctermfg=yellow
+hi SyntasticStyleErrorSign ctermbg=None ctermfg=red
+hi SyntasticStyleWarningSign ctermbg=None ctermfg=yellow
 " ##################
 " # MISC SHORTCUTS #
 " ##################
 
 let mapleader="," " leader is comma
 let maplocalleader=";"
+" render markdown into firefox (Linux only)
+" Open tab (note F17 is the literal for shift+F5)
+map <F17> :w!<CR>:w!/home/varogh/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html5 --css=/home/varogh/.local/share/markdown-css/github.css --highlight-style=haddock --self-contained --smart -o /home/varogh/tmp/vim-markdown.html /home/varogh/tmp/vim-markdown.md<CR>:!firefox /home/varogh/tmp/vim-markdown.html > /dev/null 2>&1 &<CR><CR>
+" reload tab
+map <F5> :w!<CR>:w!/home/varogh/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html5 --css=/home/varogh/.local/share/markdown-css/github.css --highlight-style=haddock --self-contained --smart -o /home/varogh/tmp/vim-markdown.html /home/varogh/tmp/vim-markdown.md<CR>:!xdotool search --name "Mozilla Firefox" key --clearmodifiers "CTRL+R" & <CR><CR>
+
 
 " #######################
 " # NOT NVIM-COMPATIBLE #

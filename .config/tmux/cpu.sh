@@ -1,7 +1,6 @@
 # Shows CPU load in percentage
-# Defined as: (USER + NICE + SYS) / (USER + NICE + SYS + IDLE)
-# Where the variables represent the number of proccesses running for different categories
-# (or waiting in the case of IDLE)
-head -n1 /proc/stat \
-  | awk  '{print 100*($2+$3+$4)/($2+$3+$4+$5)}' \
-  | sed 's/\(.*\)\(\.[0-9]\).*/\1\2/'
+# Shows average load over the last minute.
+# Note: I normalise the load per number of PCU.
+# That means a fully used quad-core CPU will have 100% instead of 400%
+head -n1 /proc/loadavg \
+        | awk  -vncpu=$(grep 'model name' /proc/cpuinfo | wc -l) '{printf( "%5.1f\n", 100*$1/ncpu)}'
