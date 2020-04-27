@@ -1,17 +1,21 @@
-" Note: Better in NeoVim: For some reason, regular vim has a ~2s delay when toggling 
-" absolute and relative line numbers. This does not happen in Neovim.
 
 " ############
 " # PACKAGES #
 " ############
 
-" package manager
-execute pathogen#infect()
-
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'vim-syntastic/syntastic'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'fatigh/vim-go', {'do': ':GoUpdateBinaries' }
 " packages configuration
 map <C-n> :NERDTreeToggle<CR> " File navigator
-let g:airline_theme='wombat' " colored status bar
+let g:airline_theme='raven' " colored status bar
 let g:airline_powerline_fonts = 1
+" Use gopls language server as backend for vim-go (gopls must be installed)
+let g:go_def_modes='gopls'
+let g:go_info_mode='gopls'
 " syntastic styling
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -36,6 +40,11 @@ let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_javascript_checkers = ['jslint']
 let g:syntastic_r_checkers = ['lintr']
 " toggle syntastic location list
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
 map <F8> <ESC>:call SyntasticToggle()<CR>
 
 let g:syntastic_is_open = 0  
@@ -52,14 +61,13 @@ endfunction
 " # EDITOR BEHAVIOUR #
 " ####################
 
+" syntax highlightin gin Snakefiles
+au BufNewFile,BufRead Snakefile set syntax=snakemake
+au BufNewFile,BufRead *.smk set syntax=snakemake
+
 " toggle absolut/hybrid line numbers between i and n modes
 set number " show line numbers
 set relativenumber
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
 
 " clipboard
 set clipboard=unnamedplus " Shares OS and vim clipboard
@@ -67,6 +75,7 @@ set clipboard=unnamedplus " Shares OS and vim clipboard
 " tab indentation behaviour
 set tabstop=4 " tabs show as space
 set softtabstop=4 " add spaces instead of tab when editing
+set shiftwidth=4
 set expandtab " tab becomes spaces
 
 " fold behaviour
@@ -79,7 +88,7 @@ set foldmethod=indent " fold  based on indentation
 filetype on
 filetype plugin on
 filetype indent on " file type based indentation
-autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0 " real tabs in makefile
+autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0 " real tabs in makefile
 " autocmd FileType html,xhtml,css,xml,xslt set shiftwidth=2 softtabstop=2 " fixed indentation for web
 autocmd FileType vim,lua,nginx set shiftwidth=2 softtabstop=2 " two space indentation for some files
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS " auto-indent braces in CSS
@@ -99,24 +108,26 @@ set mouse=a
 " #############
 
 " text/bg colors
+set t_Co=256
 syntax on " enable syntax highlighting
-colorscheme nord
+colorscheme xoria256
 " http://vim.wikia.com/wiki/Fix_syntax_highlighting
-syntax sync minlines=200
+syntax sync minlines=500
 hi Normal ctermbg=None 
-hi LineNr ctermfg=None ctermbg=None
-
+hi LineNr ctermbg=0
+" hi CursorLine ctermbg=236
+highlight SignColumn guibg=None ctermbg=None
+highlight CursorLineNR ctermfg=0 ctermbg=blue
 " command menu/bar
 set showcmd " show last command used in bottom bar
 set wildmenu " visual autocomplete menu
 
 " highlighting
-set cursorline " highlight current line in file
-highlight CursorLineNR ctermfg=117
+" set cursorline " highlight current line in file
 set showmatch " highlight matching ({[]})
 set incsearch " Show where the next pattern is as you type it:
 set hlsearch " Highlight the last searched pattern:
-hi Search cterm=None ctermbg=117
+" hi Search cterm=None ctermbg=4 
 " Making colors of syntactic errors/warnings less intrusive
 hi Todo ctermbg=None ctermfg=yellow
 hi Error ctermbg=none ctermfg=red
@@ -124,7 +135,7 @@ hi SpellBad ctermbg=None ctermfg=red
 hi SpellCap ctermbg=None ctermfg=yellow
 hi SyntasticErrorSign ctermbg=None ctermfg=red
 hi SyntasticWarningSign ctermbg=None ctermfg=yellow
-hi SyntasticStyleErrorSign ctermbg=None ctermfg=red
+hi SyntasticStyleErrorSign ctermbg=None ctermfg=yellow
 hi SyntasticStyleWarningSign ctermbg=None ctermfg=yellow
 " ##################
 " # MISC SHORTCUTS #
@@ -132,12 +143,6 @@ hi SyntasticStyleWarningSign ctermbg=None ctermfg=yellow
 
 let mapleader="," " leader is comma
 let maplocalleader=";"
-" render markdown into firefox (Linux only)
-" Open tab (note F17 is the literal for shift+F5)
-map <F17> :w!<CR>:w!/home/varogh/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html5 --css=/home/varogh/.local/share/markdown-css/github.css --highlight-style=haddock --self-contained --smart -o /home/varogh/tmp/vim-markdown.html /home/varogh/tmp/vim-markdown.md<CR>:!firefox /home/varogh/tmp/vim-markdown.html > /dev/null 2>&1 &<CR><CR>
-" reload tab
-map <F5> :w!<CR>:w!/home/varogh/tmp/vim-markdown.md<CR>:!pandoc -s -f markdown -t html5 --css=/home/varogh/.local/share/markdown-css/github.css --highlight-style=haddock --self-contained --smart -o /home/varogh/tmp/vim-markdown.html /home/varogh/tmp/vim-markdown.md<CR>:!xdotool search --name "Mozilla Firefox" key --clearmodifiers "CTRL+R" & <CR><CR>
-
 
 " #######################
 " # NOT NVIM-COMPATIBLE #
