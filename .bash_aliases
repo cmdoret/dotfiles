@@ -1,0 +1,105 @@
+### General CLI utilities ###
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+# Get man page for a specific bash builtin
+bashman () { man bash | less -p "^       $1 "; }
+# some more ls aliases
+alias ll='ls -l --color=auto'
+#alias la='ls -A'
+#alias l='ls -CF'
+alias df='pydf'
+alias cp="cp -i"                          # confirm before overwriting something
+alias sudo='sudo '                        # space at the end allows evaluation of a second alias
+
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+# use nvim
+alias vim='nvim'
+# Graphical display for network stats
+alias ntop='speedometer -l -r wlp3s0 -t wlp3s0 -m $(( 1024 * 1024 * 3 / 2 ))'
+alias todo="todotxt-machine"
+# Fix terminal colors in ssh / tmux
+alias tmux="TERM=screen-256color-bce tmux"
+alias "ssh"="TERM=xterm-88color ssh"
+
+### Multimedia ###
+
+alias presentation_mode='xrandr --output EDP-1 --auto --output HDMI-2 --auto'
+
+### Bioinformatics ###
+
+# Genome cat
+catg() { 
+    cat $1 \
+    | grep -v ">" \
+    | GREP_COLOR="01;34" egrep -i --color=always "C" \
+    | GREP_COLOR="01;32" egrep -i --color=always "A" \
+    | GREP_COLOR="01;31" egrep -i --color=always "T" \
+    | GREP_COLOR="01;33" egrep -i --color=always "G" 
+}
+
+
+# Take random sample of pairs in gzipped paired end fastq files
+fqgz_sample_pairs(){
+        # Pastes both files, shuffles pairs, takes n first and splits pairs into 2 files again
+  
+  out1="sample.${1%.gz}"
+  out2="sample.${2%.gz}"
+
+  paste <(gunzip -c "$1") <(gunzip -c "$2") \
+   | awk '{ printf("%s", $0); n++; if(n%4==0){ printf("\n");} else {printf("\t\t");} }' \
+   | awk 'BEGIN{srand();} {printf "%0.15f\t%s\n", rand(), $0;}' \
+   | sort -n \
+   | cut -f 2- \
+   | head -n "$3" \
+   | sed 's/\t\t/\n/g' \
+   | awk -F '\t' -v f1="$out1" -v f2="$out2" '{print $1 > f1; print $2 > f2}'
+  gzip "$out1" "$out2"
+
+}
+
+# Split a fasta file with multiple entries into one file per entry, where the filename is entry.fa
+fasta_split(){
+    awk '/^>/ {OUT=substr($0,2) ".fa"}; {print >> OUT; close(OUT)}' "$1"
+}
+
+fasta_length(){
+    awk '/^>/ {if (seqlen){print seqlen;}; printf "%s ",$0;seqlen=0;next;}{seqlen += length($0)}END{print seqlen}' "$1"
+}
+
+alias hicpython="ipython -i $HOME/Templates/ipython_hic_env.py"
+
+### Work specific ###
+# Work VPN aliases
+alias pasteur_in="f5fpc -s -t connect.pasteur.fr"
+alias pasteur_out="f5fpc -o"
