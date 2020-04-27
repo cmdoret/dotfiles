@@ -2,12 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH="/home/varogh/.oh-my-zsh"
+export ZSH="/home/cyril/.oh-my-zsh"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -58,8 +58,6 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-
-# Load plugins and themes
 plugins=(
   git
   pep8
@@ -69,19 +67,16 @@ plugins=(
   catimg
   zsh-autosuggestions
 )
-
+ ZSH_DISABLE_COMPFIX="true"
 source $ZSH/oh-my-zsh.sh
-source ~/.oh-my-zsh/themes/alien/alien.zsh
 
-# Add anaconda to path and set default python environment
-export PATH="$PATH:/opt/anaconda/bin"
-source activate py36
 # User configuration
-
+unsetopt AUTO_CD
 # export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+# Better killall completition
+zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
@@ -90,38 +85,53 @@ source activate py36
 #   export EDITOR='mvim'
 # fi
 
+# vim as default editor
+export EDITOR='/usr/bin/nvim'
+# Colors for man
+export LESS_TERMCAP_mb=$'\e[1;34m'
+export LESS_TERMCAP_md=$'\e[1;34m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[1;44;30m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;32m'
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
+# 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-
+##  
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Better killall completition
-zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+
+if [ -f ~/.bash_aliases ]; then
+	source ~/.bash_aliases
+fi
+if [ -f ~/.profile ]; then
+	source ~/.profile
+fi
 
 
-# ALIASES
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
-# Graphical display for network stats
-alias ntop='speedometer -l -r enp3s0 -t enp3s0 -m $(( 1024 * 1024 * 3 / 2 ))'
-# use nvim
-alias vim='nvim'
-
-# COLORS
-
-# Colors for man
-export LESS_TERMCAP_mb=$'\e[1;31m'
-export LESS_TERMCAP_md=$'\e[1;31m'
-export LESS_TERMCAP_me=$'\e[0m'
-export LESS_TERMCAP_se=$'\e[0m'
-export LESS_TERMCAP_so=$'\e[1;44;33m'
-export LESS_TERMCAP_ue=$'\e[0m'
-export LESS_TERMCAP_us=$'\e[1;32m'
-
-# better yaourt colors
-export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
+conda activate py37
