@@ -33,11 +33,14 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
-if [ -f ~/.bash_aliases ]; then
-	source ~/.bash_aliases
+if [ -f ~/.config/aliases ]; then
+	source ~/.config/aliases
 fi
 
-source ~/.git-prompt.sh
+# Load environment variables
+if [ -f ~/.config/env ]; then
+    source ~/.config/env
+fi
 
 #PS1 for root and users
 if [[ ${EUID} == 0 ]] ; then
@@ -52,10 +55,6 @@ eval `dircolors -b`
 
 # Colors for grep
 export GREP_COLOR="1;32"
-
-# vim as default editor
-export EDITOR='/usr/bin/nvim'
-
 # Colors for man
 export LESS_TERMCAP_mb=$'\e[1;31m'
 export LESS_TERMCAP_md=$'\e[1;31m'

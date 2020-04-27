@@ -111,11 +111,8 @@ export LESS_TERMCAP_us=$'\e[1;32m'
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-if [ -f ~/.bash_aliases ]; then
-	source ~/.bash_aliases
-fi
-if [ -f ~/.profile ]; then
-	source ~/.profile
+if [ -f ~/.config/aliases]; then
+	source ~/.config/aliases
 fi
 
 

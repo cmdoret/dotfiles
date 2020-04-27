@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# Run by i3 on login to set env variables
+
+# Add new directories to PATH
+# Include user's private bins
+ADD_TO_PATH=( "$HOME/bin" "$HOME/.local/bin" /sbin /usr/sbin /usr/local/sbin )
+# Add language-specific binaries
+ADD_TO_PATH+=( "$HOME/.cargo/bin" /usr/local/go/bin "$HOME/perl5/bin" )
+# Add snap binaries to path
+ADD_TO_PATH+=( /snap/bin /usr/sbin )
+# Add anaconda installation to path
+ADD_TO_PATH+=( /opt/anaconda3/bin )
+for dir in ${ADD_TO_PATH[@]}; do
+    if [ -d $dir ] ; then
+        PATH="$PATH:$dir"
+    fi
+done
+export PATH
+
+# Default programs
+export EDITOR="nvim"
+export BROWSER="brave"
+
+# Move config files to .config dir to keep ~ clean
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
+export LESSHISTFILE="-"
+export WGETRC="$HOME/.config/wget/wgetrc"
+export ZDOTDIR="$HOME/.config/zsh"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export SCREENRC="$XDG_CONFIG_HOME/screen/screenrc"
+export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
+export GOPATH="$XDG_DATA_HOME/go"
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export XENVIRONMENT="$XDG_CONFIG_HOME/urxvt/.Xresources"
