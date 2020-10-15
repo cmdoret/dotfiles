@@ -43,7 +43,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show drun 
 
 # Start dmenu frontend for xrandr to switch/tweak graphical display
-bindsym $mod+g exec /home/cyril/Public/utilities/dmenu-xrandr.sh
+bindsym $mod+g exec $XDG_CONFIG_HOME/dmenu/dmenu-xrandr.sh
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
