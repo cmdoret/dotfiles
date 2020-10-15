@@ -15,8 +15,7 @@ fi
 bashman () { man bash | less -p "^       $1 "; }
 # some more ls aliases
 alias ll='ls -l --color=auto'
-#alias la='ls -A'
-#alias l='ls -CF'
+alias vim='vim -u $XDG_CONFIG_HOME/vim/vimrc'
 alias df='pydf'
 alias cp="cp -i"                          # confirm before overwriting something
 alias sudo='sudo '                        # space at the end allows evaluation of a second alias
@@ -47,7 +46,7 @@ ex ()
 alias vim='nvim'
 # Graphical display for network stats
 alias ntop='speedometer -l -r wlp3s0 -t wlp3s0 -m $(( 1024 * 1024 * 3 / 2 ))'
-alias todo="todotxt-machine"
+alias todo="todotxt-machine $HOME/Documents/todo/TODO.txt Documents/todo/DONE.txt"
 # Fix terminal colors in ssh / tmux
 alias tmux="TERM=screen-256color-bce tmux"
 alias "ssh"="TERM=xterm-88color ssh"
@@ -55,6 +54,12 @@ alias "ssh"="TERM=xterm-88color ssh"
 ### Multimedia ###
 
 alias presentation_mode='xrandr --output EDP-1 --auto --output HDMI-2 --auto'
+
+# Compress mp4 video
+mp4_shrink() {
+    ffmpeg -i "$1" -vcodec libx265 -crf 28 "$2"
+}
+
 
 ### Bioinformatics ###
 
@@ -90,11 +95,26 @@ fqgz_sample_pairs(){
 
 # Split a fasta file with multiple entries into one file per entry, where the filename is entry.fa
 fasta_split(){
-    awk '/^>/ {OUT=substr($0,2) ".fa"}; {print >> OUT; close(OUT)}' "$1"
+    awk '/^>/ { gsub(">","",$1)
+                FILE=$1 ".fa"
+                print ">" $1 >> FILE
+                next}
+              { print >> FILE }'  $1
 }
 
 fasta_length(){
     awk '/^>/ {if (seqlen){print seqlen;}; printf "%s ",$0;seqlen=0;next;}{seqlen += length($0)}END{print seqlen}' "$1"
+}
+
+# Retrieve entries matching a name pattern in a fasta file
+fasta_fetch(){
+  awk -v chrom="$1" 'BEGIN {RS=">"} $0 ~ chrom {print ">"$0}' "$2"
+}
+
+# Print the coverage for each chromosome in a BAM file
+bam_chromcov(){
+  samtools depth -a "$1" \
+    | awk '{if(NR==1){chr=$1};if ($1 == chr){sum+=$3;n+=1}else {print chr, sum/n; chr=$1;sum=0;n=0}}END{print chr, sum/n}'
 }
 
 alias hicpython="ipython -i $HOME/Templates/ipython_hic_env.py"
