@@ -1,0 +1,15 @@
+#!/bin/bash
+
+Vol=$(pactl list sinks | awk '/Volume: front/{print $5-"%"}'| tail -n1)
+Mute=$(amixer get Master | awk '/Front Left:/{print $NR}')
+if [ "$Mute" = "[off]" ];then
+    echo -e " --"
+else
+    if [ "$Vol" -gt "60" ];then
+        echo -e " $Vol%"
+    elif [ "$Vol" -gt "30" ];then
+        echo -e " $Vol%"
+    elif [ "$Vol" -lt "30" ];then
+        echo -e " $Vol%"
+    fi
+fi

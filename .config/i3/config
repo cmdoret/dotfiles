@@ -12,10 +12,27 @@
 set $mod Mod4
 set $alt Mod1
 
+set $coloract "#01cbc1"
+set $colorin "#018b84"
+set $terminal st
+set_from_resource $color15 i3wm.color15 "#e9ffff"
+set_from_resource $split i3wm.color10 "#01dfce"
+set_from_resource $coloru i3wm.color2 "#04A99C"
+set_from_resource $color0 i3wm.color0 "#00181F"
+set_from_resource $color8 i3wm.color8 "#013e50"
 # Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:Font Awesome 12
+# is used in the bar block below.
+font pango:Font Awesome 14
 
+######### COLORS ##########
+#
+# class                 border    backgr    text    indicator child_border
+client.focused          $coloract $coloract $color15 $split  $coloract
+client.focused_inactive $coloract $coloract $color15 $split  $colorin
+client.unfocused        $colorin  $colorin  $color15 $split  $colorin
+client.urgent           $coloru   $coloru   $color15 $coloru $coloru
+client.placeholder      $color0   $color8   $color15 $color0 $color8
+client.background       $color0
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -35,7 +52,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec urxvt -depth 32 -bg rgba:0000/0000/0000/aaaa -fg "[80]#eeeeee"
-bindsym $mod+Return exec urxvt -bg "#2f343f" 
+bindsym $mod+Return exec $terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -43,7 +60,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec rofi -show drun 
 
 # Start dmenu frontend for xrandr to switch/tweak graphical display
-bindsym $mod+g exec $XDG_CONFIG_HOME/dmenu/dmenu-xrandr.sh
+bindsym $mod+g exec "$XDG_CONFIG_DIR/dmenu/dmenu-xrandr.sh"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -150,13 +167,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 #
-# lock screen with i3lock
-bindsym $mod+Shift+x exec --no-startup-id /opt/i3lock-blur
-#
 # Take a screenshot
-bindsym --release Shift+Print exec "xfce4-screenshooter"
-bindsym --release Print exec "scrot -m ~/scrsht.png && xclip -selection clipboard -t image/png ~/scrsht.png && rm ~/scrsht.png"
-bindsym --release $mod+Print exec "scrot -s -m ~/scrsht.png && xclip -selection clipboard -t image/png ~/scrsht.png && rm ~/scrsht.png"
+bindsym --release Print exec "scrot -m $HOME/scrsht.png && xclip -selection clipboard -t image/png $HOME/scrsht.png && rm $HOME/scrsht.png"
+bindsym --release $mod+Print exec "scrot -s -m $HOME/scrsht.png && xclip -selection clipboard -t image/png $HOME/scrsht.png && rm $HOME/scrsht.png"
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
@@ -196,39 +209,40 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Define colors
-set $bg-color 	         #4f545f
-set $active-bg-color     #4084D6
-set $inactive-bg-color   #2f343f
-set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
-set $urgent-text-color   #f3f4f5
-set $urgent-bg-color     #EE3333
+#set $bg-color 	         #4f545f
+#set $active-bg-color     #4084D6
+#set $inactive-bg-color   #2f343f
+#set $text-color          #f3f4f5
+#set $inactive-text-color #676E7D
+#set $urgent-text-color   #f3f4f5
+#set $urgent-bg-color     #EE3333
 
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command SCRIPT_DIR=/usr/share/i3blocks/ i3blocks -c /home/cyril/.config/i3/i3blocks.conf
+        status_command SCRIPT_DIR="$XDG_CONFIG_HOME/i3blocks/" i3blocks -c "$XDG_CONFIG_HOME/i3blocks/i3blocks.conf"
 
 	colors {
-		background $inactive-bg-color
-	    separator #757575
+		background $colorin
+	    separator $color15
+        statusline $color15
 		#                  border             background         text
-		focused_workspace  $inactive-bg-color $inactive-bg-color $text-color
-		inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		urgent_workspace   $urgent-bg-color   $urgent-bg-color   $urgent-text-color
+		focused_workspace  $coloract $coloract $color15
+		inactive_workspace $colorin $colorin $color15
+		urgent_workspace   $coloru   $coloru   $color15
 	}
 }
 
 # System commands
 set $mode_system System (l) lock, (e) log out, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id "bash /opt/i3exit --lock", mode "default"
-    bindsym e exec --no-startup-id "bash /opt/i3exit --logout", mode "default"
-    bindsym s exec --no-startup-id "bash /opt/i3exit --suspend", mode "default"
-    bindsym h exec --no-startup-id "bash /opt/i3exit --hibernate", mode "default"
-    bindsym r exec --no-startup-id "bash /opt/i3exit --reboot", mode "default"
-    bindsym Shift+s exec --no-startup-id /opt/i3exit --shutdown, mode "default"
+    bindsym l exec --no-startup-id "bash i3exit lock", mode "default"
+    bindsym e exec --no-startup-id "bash i3exit logout", mode "default"
+    bindsym s exec --no-startup-id "bash i3exit suspend", mode "default"
+    bindsym h exec --no-startup-id "bash i3exit hibernate", mode "default"
+    bindsym r exec --no-startup-id "bash i3exit reboot", mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
     # back to normal mode
     bindsym Return mode "default"
@@ -238,12 +252,12 @@ mode "$mode_system" {
 bindsym $mod+Shift+s  mode "$mode_system"
 
 # auto lock after 4 minutes if doing nothing except if mouse is put in a bottom corner
-exec --no-startup-id xautolock -time 1 -locker --corners 00-- "/opt/i3exit --lock "
+exec --no-startup-id xautolock -time 1 -locker --corners 00-- "i3exit lock "
 
 # Multimedia keys support
 # Set key for brightness
-bindsym XF86MonBrightnessUp exec --no-startup-id sudo /home/cyril/.config/thinkpad/bright_up.sh
-bindsym XF86MonBrightnessDown exec --no-startup-id sudo /home/cyril/.config/thinkpad/bright_down.sh
+bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 5"
+bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 5"
 
 # audio shortcuts updating i3blocks
 bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
@@ -252,62 +266,56 @@ bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%- i3blocks
 # toggle microphone
 bindsym XF86AudioMicMute exec --no-startup-id amixer set Capture toggle
 
-# window colors
-#                       border              background         text                 indicator
-client.focused          $bg-color           $bg-color          $text-color          #3A77C1
-client.unfocused        $inactive-bg-color $inactive-bg-color $inactive-text-color  #3A77C1
-client.focused_inactive $inactive-bg-color $inactive-bg-color $inactive-text-color  #3A77C1
-client.urgent           $urgent-bg-color    $urgent-bg-color   $text-color          #3A77C1
 
 # Gaps settings
-gaps inner 15
-gaps outer 3
+# gaps inner 15
+# gaps outer 3
 
-set $mode_gaps Gaps: (o) outer, (i) inner
-set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
-set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps Gaps: (o) outer, (i) inner
+# set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+# set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
 
-bindsym $mod+Shift+g mode "$mode_gaps"
+# bindsym $mod+Shift+g mode "$mode_gaps"
 
-mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-mode "$mode_gaps_inner" {
-        bindsym plus  gaps inner current plus 5
-        bindsym minus gaps inner current minus 5
-        bindsym 0     gaps inner current set 0
-
-        bindsym Shift+plus  gaps inner all plus 5
-        bindsym Shift+minus gaps inner all minus 5
-        bindsym Shift+0     gaps inner all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-mode "$mode_gaps_outer" {
-        bindsym plus  gaps outer current plus 5
-        bindsym minus gaps outer current minus 5
-        bindsym 0     gaps outer current set 0
-
-        bindsym Shift+plus  gaps outer all plus 5
-        bindsym Shift+minus gaps outer all minus 5
-        bindsym Shift+0     gaps outer all set 0
-
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-smart_gaps on
+# mode "$mode_gaps" {
+#         bindsym o      mode "$mode_gaps_outer"
+#         bindsym i      mode "$mode_gaps_inner"
+#         bindsym Return mode "default"
+#         bindsym Escape mode "default"
+# }
+# 
+# mode "$mode_gaps_inner" {
+#         bindsym plus  gaps inner current plus 5
+#         bindsym minus gaps inner current minus 5
+#         bindsym 0     gaps inner current set 0
+# 
+#         bindsym Shift+plus  gaps inner all plus 5
+#         bindsym Shift+minus gaps inner all minus 5
+#         bindsym Shift+0     gaps inner all set 0
+# 
+#         bindsym Return mode "default"
+#         bindsym Escape mode "default"
+# }
+# mode "$mode_gaps_outer" {
+#         bindsym plus  gaps outer current plus 5
+#         bindsym minus gaps outer current minus 5
+#         bindsym 0     gaps outer current set 0
+# 
+#         bindsym Shift+plus  gaps outer all plus 5
+#         bindsym Shift+minus gaps outer all minus 5
+#         bindsym Shift+0     gaps outer all set 0
+# 
+#         bindsym Return mode "default"
+#         bindsym Escape mode "default"
+# }
+# smart_gaps on
 # Set wallpaper when i3 is loaded/reloaded
-exec_always feh --bg-scale /home/cyril/Pictures/Wallpapers/nature_landscapes/grass_night.jpg
+exec_always feh --bg-scale "$HOME/Pictures/Wallpapers/nature_landscapes/grass_night.jpg"
 # Enable fading when switching workspaces
 # Assign specific workspaces to programs here
-assign [instance="Navigator|Dialog"] $workspace2
+assign [instance="Navigator"] $workspace2
 assign [class="Chromium|Firefox|qutebrowser"] $workspace2
-assign [class="Zathura|Soffice|calibre|libreoffice-writer|libreoffice-calc"] $workspace3
+assign [class="Soffice|calibre|libreoffice-writer|libreoffice-calc"] $workspace3
 assign [instance="libreoffice"] $workspace3
 assign [class="Wine|Steam|dontstarve"] $workspace4
 for_window [class="Spotify"] move to workspace $workspace8
@@ -318,9 +326,11 @@ for_window [class="feh|Vlc|mpv|freecad"] floating enable focus
 exec --no-startup-id udiskie -ans &
 
 # enable international US keyboard
-exec --no-startup-id setxkbmap -rules evdev -model evdev -layout us -variant altgr-intl &
+exec --no-startup-id setxkbmap -layout us -variant altgr-intl -option "caps:escape" &
 # Start nm-applet in toolbar to manage connections
 exec --no-startup-id nm-applet &
 # using compton to avoid tearing and flash + adding fancy effects :)
-exec --no-startup-id compton  --config ~/.config/compton.conf -b --backend glx
-#exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' --config ~/.config/compton.conf -b --backend glx --blur-kern 11x11gaussian
+exec --no-startup-id compton  --config "$XDG_CONFIG_DIR/compton.conf" -b --backend glx
+#exec --no-startup-id compton --opacity-rule '100:window_type = "dock" && class_g = "i3bar"' --config "$XDG_CONFIG_DIR/compton.conf" -b --backend glx --blur-kern 11x11gaussian
+exec --no-startup-id bash "$XDG_CONFIG_HOME/wpg/wp_init.sh"
+

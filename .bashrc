@@ -64,3 +64,7 @@ export LESS_TERMCAP_so=$'\e[1;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;32m'
 
+
+if [ -f ~/.config/conda/conda_init.sh ]; then
+    source ~/.config/conda/conda_init.sh
+fi

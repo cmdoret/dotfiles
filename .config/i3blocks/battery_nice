@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Single battery case
+#Bat=$(acpi | head -n1 | awk '{gsub(",|%","",$4); print $4}');
+
+Bat=$(acpi -i | awk -vFS='\nBattery ' -vRS='' '{match($1, /([0-9]+)%/, lvl1); match($3, /([0-9]+)%/, lvl2); match($2, /([0-9]+) mAh/, mah1);match($4, /([0-9]+) mAh/, mah2); print int ((lvl1[1]*mah1[1] + lvl2[1]*mah2[1]) / (mah1[1]+mah2[1]))}')
+# Special case to get average charge of two batteries charge weighted by capacity
+
+adapt=$(acpi -a | awk '{print $3}');
+
+if [ "$adapt" = "on-line" -a -n "$Bat" ];then
+    icon0="  "
+    icon1="  "
+    icon2="  "
+    icon3="  "
+    icon4="  "
+elif [ "$adapt" = "on-line" ];then
+    icon0=""
+    icon1=""
+    icon2=""
+    icon3=""
+    icon4=""
+else
+    icon0=""
+    icon1=""
+    icon2=""
+    icon3=""
+    icon4=""
+fi
+
+[ -z "$Bat" ] && echo "$icon0 $adapt" && exit 0
+[ "$Bat" -ge "100" ] && echo "$icon4 Full" && exit 0
+[ "$Bat" -ge "75" ] && echo "$icon3 $Bat%" && exit 0
+[ "$Bat" -ge "50" ] && echo "$icon2 $Bat%" && exit 0
+[ "$Bat" -ge "25" ] && echo "$icon1 $Bat%" && exit 0
+[ "$Bat" -lt "25" ] && echo "$icon0 $Bat%" && exit 0

@@ -1,5 +1,13 @@
+### Dotfiles management
+
+# define alias to manage dotfiles with a git repository
+alias config='/usr/bin/git --git-dir=$HOME/Repos/dotfiles --work-tree=$HOME'
+
 ### General CLI utilities ###
 
+# Fancy git log
+
+alias grog="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --date=short"
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -13,12 +21,16 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 # Get man page for a specific bash builtin
 bashman () { man bash | less -p "^       $1 "; }
-# some more ls aliases
-alias ll='ls -l --color=auto'
+# some more ls aliases (use exa instead if available)
+type exa >/dev/null 2>&1 && alias ll="exa -l" || alias ll="ls -l"
+type exa >/dev/null 2>&1 && alias l="exa -la" || alias l="ls -la"
+
 alias vim='vim -u $XDG_CONFIG_HOME/vim/vimrc'
-alias df='pydf'
 alias cp="cp -i"                          # confirm before overwriting something
 alias sudo='sudo '                        # space at the end allows evaluation of a second alias
+# Substitute other utilities with cool commands if available
+type bat >/dev/null 2>&1 && alias cat='bat'
+type pydf >/dev/null 2>&1 && alias df='pydf'
 
 ex ()
 {
@@ -42,11 +54,9 @@ ex ()
   fi
 }
 
-# use nvim
-alias vim='nvim'
 # Graphical display for network stats
 alias ntop='speedometer -l -r wlp3s0 -t wlp3s0 -m $(( 1024 * 1024 * 3 / 2 ))'
-alias todo="todotxt-machine $HOME/Documents/todo/TODO.txt Documents/todo/DONE.txt"
+alias todo="todotxt-machine $HOME/Documents/todo/TODO.txt $HOME/Documents/todo/DONE.txt"
 # Fix terminal colors in ssh / tmux
 alias tmux="TERM=screen-256color-bce tmux"
 alias "ssh"="TERM=xterm-88color ssh"
@@ -93,6 +103,15 @@ fqgz_sample_pairs(){
 
 }
 
+# Print restriction site for an enzyme
+enz(){
+    python -c "import Bio.Restriction.Restriction as res
+try:
+    print(res.${1}.site)
+except AttributeError:
+    print('No such enzyme')" 
+}
+
 # Split a fasta file with multiple entries into one file per entry, where the filename is entry.fa
 fasta_split(){
     awk '/^>/ { gsub(">","",$1)
@@ -119,7 +138,3 @@ bam_chromcov(){
 
 alias hicpython="ipython -i $HOME/Templates/ipython_hic_env.py"
 
-### Work specific ###
-# Work VPN aliases
-alias pasteur_in="f5fpc -s -t connect.pasteur.fr"
-alias pasteur_out="f5fpc -o"
