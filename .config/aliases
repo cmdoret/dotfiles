@@ -1,7 +1,7 @@
 ### Dotfiles management
 
 # define alias to manage dotfiles with a git repository
-alias config='/usr/bin/git --git-dir=$HOME/Repos/dotfiles --work-tree=$HOME'
+alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 ### General CLI utilities ###
 
