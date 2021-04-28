@@ -1,9 +1,14 @@
-THEME="agnoster"
 
 plugins=(
   catimg
   vi-mode
 )
+
+
+# Load all stock functions (from $fpath files) called below.
+autoload -Uz compinit promptinit
+compinit
+promptinit
 
 # User configuration
 unsetopt AUTO_CD
@@ -27,13 +32,9 @@ export LESS_TERMCAP_us=$'\e[1;32m'
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-# Source plugins, aliases and theme
+# Source plugins, aliases, libs
 if [ -f ~/.config/aliases ]; then
 	source ~/.config/aliases
-fi
-
-if [ -f ~/.config/zsh/themes/${THEME}.zsh-theme ]; then
-	source ~/.config/zsh/themes/${THEME}.zsh-theme
 fi
 
 for lib in ~/.config/zsh/omz_libs/*.zsh; do
@@ -46,10 +47,10 @@ for plugin ($plugins); do
     fi
 done
 
-if [ -f ~/.config/aliases ]; then
-	source ~/.config/aliases
-fi
 
 if [ -f ~/.config/conda/conda_init.sh ]; then
     source ~/.config/conda/conda_init.sh
 fi
+
+# Use starship prompt
+eval "$(starship init zsh)"
