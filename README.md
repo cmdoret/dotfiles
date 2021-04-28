@@ -11,7 +11,7 @@ The repository must be cloned as a "bare" repository into your home directory by
 
 ```sh
 echo ".dotfiles" >> .gitignore
-git clone --separate-git-dir=~/.dotfiles https://github.com/cmdoret/dotfiles.git ~
+git clone --bare https://github.com/cmdoret/dotfiles.git $HOME/.dotfiles
 ```
 
 A config `config` alias is defined in `.config/aliases` to easily manage the dotfiles. This allows to commit the changes with:
