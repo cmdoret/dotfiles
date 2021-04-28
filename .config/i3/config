@@ -14,7 +14,7 @@ set $alt Mod1
 
 set $coloract "#01cbc1"
 set $colorin "#018b84"
-set $terminal st
+set $terminal alacritty
 set_from_resource $color15 i3wm.color15 "#e9ffff"
 set_from_resource $split i3wm.color10 "#01dfce"
 set_from_resource $coloru i3wm.color2 "#04A99C"
