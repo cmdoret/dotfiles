@@ -1,6 +1,9 @@
 THEME="agnoster"
 
-plugins=(catimg vi-mode)
+plugins=(
+  catimg
+  vi-mode
+)
 
 # User configuration
 unsetopt AUTO_CD
@@ -25,11 +28,11 @@ export LESS_TERMCAP_us=$'\e[1;32m'
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Source plugins, aliases and theme
-if [ -f ~/.config/aliases]; then
+if [ -f ~/.config/aliases ]; then
 	source ~/.config/aliases
 fi
 
-if [ -f ~/.config/zsh/themes/${THEME}.zsh-theme]; then
+if [ -f ~/.config/zsh/themes/${THEME}.zsh-theme ]; then
 	source ~/.config/zsh/themes/${THEME}.zsh-theme
 fi
 
@@ -37,13 +40,13 @@ for lib in ~/.config/zsh/omz_libs/*.zsh; do
 	source $lib
 done
 
-for plugin in ($plugins); do
-    if [ -f ~/.config/zsh/plugins/$plugin/$plugin.plugin.zsh ];
+for plugin ($plugins); do
+    if [ -f ~/.config/zsh/plugins/$plugin/$plugin.plugin.zsh ]; then
         source ~/.config/zsh/plugins/$plugin/$plugin.plugin.zsh
     fi
 done
 
-if [ -f ~/.config/aliases]; then
+if [ -f ~/.config/aliases ]; then
 	source ~/.config/aliases
 fi
 

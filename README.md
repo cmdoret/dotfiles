@@ -14,6 +14,7 @@ echo ".dotfiles" >> .gitignore
 git clone --bare https://github.com/cmdoret/dotfiles.git $HOME/.dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 config checkout
+config config --local status.showUntrackedFiles no
 ```
 
 A config `config` alias is defined in `.config/aliases` to easily manage the dotfiles. This allows to commit the changes with:
