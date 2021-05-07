@@ -1,3 +1,7 @@
+# This is my zsh configuration. It uses a few hand picked scripts from 
+# oh-my-zsh without depending on the whole thing. For the best experience,
+# the following CLI utilities should be installed, but they are not necessary:
+# exa, bat, fd, fzf, pydf
 
 plugins=(
   catimg
@@ -31,6 +35,18 @@ export LESS_TERMCAP_us=$'\e[1;32m'
 # 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
+#
+# Configure history settings
+
+export HISTFILE=~/.config/zsh/.histfile
+export HISTSIZE=1000000 # Num items in local hist list
+export SAVEHIST=1000000 # Max num items in hist file
+
+setopt HIST_IGNORE_ALL_DUPS # Don't put duplicates in history list
+setopt HIST_SAVE_NO_DUPS # Don't savec duplicates in history file
+setopt HIST_REDUCE_BLANKS # Remove unnecessary blanks
+setopt INC_APPEND_HISTORY_TIME # Append to history file immediatly upon execution
+setopt EXTENDED_HISTORY # Record command start time
 
 # Source plugins, aliases, libs
 if [ -f ~/.config/aliases ]; then
@@ -50,6 +66,17 @@ done
 
 if [ -f ~/.config/conda/conda_init.sh ]; then
     source ~/.config/conda/conda_init.sh
+fi
+
+# Push 'v' in command mode to enter a vim buffer and edit command
+bindkey -M vicmd v edit-command-line
+
+# Source fzf keybindings to have access to fuzzy ALT+C,CTRL+R and CTRL+T
+if [ -f /usr/share/fzf/key-bindings.zsh ]; then
+    source /usr/share/fzf/key-bindings.zsh
+fi
+if [ -f /usr/share/fzf/completion.zsh ]; then
+    source /usr/share/fzf/completion.zsh
 fi
 
 # Use starship prompt
