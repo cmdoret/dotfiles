@@ -48,6 +48,11 @@ setopt HIST_REDUCE_BLANKS # Remove unnecessary blanks
 setopt INC_APPEND_HISTORY_TIME # Append to history file immediatly upon execution
 setopt EXTENDED_HISTORY # Record command start time
 
+# Set up environment variables 
+if [ -f ~/.config/env ]; then
+	source ~/.config/env
+fi
+
 # Source plugins, aliases, libs
 if [ -f ~/.config/aliases ]; then
 	source ~/.config/aliases
@@ -78,6 +83,7 @@ fi
 if [ -f /usr/share/fzf/completion.zsh ]; then
     source /usr/share/fzf/completion.zsh
 fi
+
 
 # Use starship prompt
 eval "$(starship init zsh)"
