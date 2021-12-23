@@ -23,3 +23,5 @@ A config `config` alias is defined in `.config/aliases` to easily manage the dot
 config add <modified-file>
 config commit <modified-file>
 ```
+
+Proper display of vim-airline characters and starship prompt indicators will require a nerd-patched font. This can be installed from: https://github.com/ryanoasis/nerd-fonts
