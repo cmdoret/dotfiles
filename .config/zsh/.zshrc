@@ -77,12 +77,11 @@ fi
 bindkey -M vicmd v edit-command-line
 
 # Source fzf keybindings to have access to fuzzy ALT+C,CTRL+R and CTRL+T
-if [ -f /usr/share/fzf/key-bindings.zsh ]; then
-    source /usr/share/fzf/key-bindings.zsh
-fi
-if [ -f /usr/share/fzf/completion.zsh ]; then
-    source /usr/share/fzf/completion.zsh
-fi
+for fzf in $(find /usr/share/ -regex '/usr/share/\(doc/\)?fzf/\(examples/\)?\(key-bindings\|completion\).zsh'); do
+    if [ -f $fzf ]; then
+        . $fzf
+    fi
+done
 
 
 # Use starship prompt
