@@ -77,7 +77,7 @@ fi
 bindkey -M vicmd v edit-command-line
 
 # Source fzf keybindings to have access to fuzzy ALT+C,CTRL+R and CTRL+T
-for fzf in $(find /usr/share/ -regex '/usr/share/\(doc/\)?fzf/\(examples/\)?\(key-bindings\|completion\).zsh'); do
+for fzf in $(find /usr/share/ -regex '/usr/share/\(doc/\)?fzf/\(examples/\)?\(key-bindings\|completion\).zsh' 2>/dev/null); do
     if [ -f $fzf ]; then
         . $fzf
     fi
