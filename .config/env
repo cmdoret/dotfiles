@@ -8,7 +8,7 @@ export BROWSER="firefox"
 # Move config files to .config dir to keep ~ clean
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
-export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export XAUTHORITY="$HOME/Xauthority"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export LESSHISTFILE="-"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
@@ -26,7 +26,7 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 # Include user's private bins
 ADD_TO_PATH=( "$HOME/bin" "$HOME/.local/bin" /sbin /usr/sbin /usr/local/sbin )
 # Add language-specific binaries
-ADD_TO_PATH+=( "$CARGO_HOME/bin" /usr/local/go/bin "$HOME/perl5/bin" )
+ADD_TO_PATH+=( "$CARGO_HOME/bin" /usr/local/go/bin "$GOPATH/bin" "$HOME/perl5/bin" )
 # Add anaconda installation to path
 ADD_TO_PATH+=( $HOME/anaconda3/bin )
 for dir in ${ADD_TO_PATH[@]}; do
