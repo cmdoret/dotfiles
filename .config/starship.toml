@@ -74,6 +74,9 @@ symbol = " "
 [rust]
 symbol = " "
 
+[rlang]
+symbol = " "
+
 [scala]
 symbol = " "
 
