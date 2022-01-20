@@ -3,6 +3,9 @@
 # the following CLI utilities should be installed, but they are not necessary:
 # exa, bat, fd, fzf, pydf
 
+# Uncomment next line (and last line 'zprof') to profile startup time
+#zmodload zsh/zprof
+
 plugins=(
   catimg
   vi-mode
@@ -93,3 +96,5 @@ done
 eval "$(starship init zsh)"
 # Unable autompletion in renku
 eval "$(_RENKU_COMPLETE=zsh_source renku)"
+
+# zprof
