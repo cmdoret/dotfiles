@@ -77,12 +77,19 @@ fi
 bindkey -M vicmd v edit-command-line
 
 # Source fzf keybindings to have access to fuzzy ALT+C,CTRL+R and CTRL+T
-for fzf in $(find /usr/share/ -regex '/usr/share/\(doc/\)?fzf/\(examples/\)?\(key-bindings\|completion\).zsh' 2>/dev/null); do
-    if [ -f $fzf ]; then
-        . $fzf
+# Note: Looping on possible file locations (distro-dependent) rather than
+# using regex gives better performance
+for fzf_dir in fzf doc/fzf doc/fzf/examples fzf/examples; do
+    fzf_dir="/usr/share/$fzf_dir"
+    if [ -d $fzf_dir ]; then
+        for fzf_file in $(find $fzf_dir -regex '.*\(key-bindings\|completion\).zsh' 2>/dev/null); do
+            . $fzf_file
+        done
     fi
 done
 
 
 # Use starship prompt
 eval "$(starship init zsh)"
+# Unable autompletion in renku
+eval "$(_RENKU_COMPLETE=zsh_source renku)"
