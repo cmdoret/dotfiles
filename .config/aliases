@@ -54,12 +54,18 @@ ex ()
   fi
 }
 
-# Graphical display for network stats
-alias ntop='speedometer -l -r wlp3s0 -t wlp3s0 -m $(( 1024 * 1024 * 3 / 2 ))'
 alias todo="todotxt-machine $HOME/Documents/todo/TODO.txt $HOME/Documents/todo/DONE.txt"
 # Fix terminal colors in ssh / tmux
 alias tmux="TERM=screen-256color-bce tmux"
 alias "ssh"="TERM=xterm-88color ssh"
+
+
+# Graphical display for network stats argument is
+# the name of the network interface
+ntop() {
+speedometer -l -r $1 -t $1 -m $(( 1024 * 1024 * 3 / 2 ))
+}
+
 
 ### Multimedia ###
 
