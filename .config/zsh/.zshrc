@@ -13,6 +13,7 @@ plugins=(
 
 
 # Load all stock functions (from $fpath files) called below.
+fpath+=$XDG_CONFIG_HOME/zsh/zfunc
 autoload -Uz compinit promptinit
 compinit
 promptinit
