@@ -5,6 +5,14 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 ### General CLI utilities ###
 
+# Git
+alias gb='git branch'
+alias ga='git add'
+alias gc='git commit'
+alias gs='git status'
+alias gp='git push'
+alias gl='git pull'
+
 # Fancy git log
 
 alias grog="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --date=short"
