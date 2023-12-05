@@ -28,8 +28,6 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 ADD_TO_PATH=( "$HOME/bin" "$HOME/.local/bin" /sbin /usr/sbin /usr/local/sbin )
 # Add language-specific binaries
 ADD_TO_PATH+=( "$CARGO_HOME/bin" /usr/local/go/bin "$GOPATH/bin" "$HOME/perl5/bin" )
-# Add anaconda installation to path
-ADD_TO_PATH+=( $HOME/anaconda3/bin )
 for dir in ${ADD_TO_PATH[@]}; do
     if [ -d $dir ] ; then
         PATH="$PATH:$dir"
