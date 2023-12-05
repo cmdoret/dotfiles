@@ -73,8 +73,8 @@ for plugin ($plugins); do
 done
 
 
-if [ -f ~/.config/mamba/mamba_init.sh ]; then
-    source ~/.config/mamba/mamba_init.sh
+if [ -f ~/.config/conda/conda_init.sh ]; then
+    source ~/.config/conda/conda_init.sh
 fi
 
 # Push 'v' in command mode to enter a vim buffer and edit command
@@ -96,7 +96,7 @@ done
 # Use starship prompt
 eval "$(starship init zsh)"
 # Enable autompletion in renku
-eval "$(_RENKU_COMPLETE=zsh_source renku)"
+#eval "$(_RENKU_COMPLETE=zsh_source renku)"
 
 #zprof
 
