@@ -29,9 +29,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 # Get man page for a specific bash builtin
 bashman () { man bash | less -p "^       $1 "; }
-# some more ls aliases (use exa instead if available)
-type exa >/dev/null 2>&1 && alias ll="exa -l" || alias ll="ls -l"
-type exa >/dev/null 2>&1 && alias l="exa -la" || alias l="ls -la"
+# some more ls aliases (use eza instead if available)
+type eza >/dev/null 2>&1 && alias ll="eza -l" || alias ll="ls -l"
+type eza >/dev/null 2>&1 && alias l="eza -la" || alias l="ls -la"
 
 alias vim='vim -u $XDG_CONFIG_HOME/vim/vimrc'
 alias cp="cp -i"                          # confirm before overwriting something
