@@ -5,6 +5,8 @@ alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 ### General CLI utilities ###
 
+alias v='nvim'
+
 # Git
 alias gb='git branch'
 alias ga='git add'
