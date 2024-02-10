@@ -11,7 +11,7 @@ The repository must be cloned as a "bare" repository into your home directory by
 
 ```sh
 echo ".dotfiles" >> .gitignore
-git clone --bare https://github.com/cmdoret/dotfiles.git $HOME/.dotfiles
+git clone --recurse-submodules --bare https://github.com/cmdoret/dotfiles.git $HOME/.dotfiles
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 config checkout
 config config --local status.showUntrackedFiles no
