@@ -12,6 +12,7 @@ local plugins = {
       ensure_installed = {
         "bash",
         "go",
+        "markdown",
         "python",
         "r",
         "rust",
@@ -22,11 +23,17 @@ local plugins = {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        -- go
         "gopls",
+        -- lua
         "lua-language-server",
+        -- markdown
+        "marksman",
         "prettier",
-        "python-lsp-server",
+        -- python
+        "pyright",
         "ruff",
+        -- rust
         "rust-analyzer",
       },
     },
