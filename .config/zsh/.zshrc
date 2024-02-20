@@ -95,8 +95,12 @@ done
 
 # Use starship prompt
 eval "$(starship init zsh)"
+# Setup zoxide
+eval "$(zoxide init zsh)"
+
 # Enable autompletion in renku
 #eval "$(_RENKU_COMPLETE=zsh_source renku)"
 
 #zprof
 
+export KUBECONFIG="$HOME/.kube/config-sdscuser"
