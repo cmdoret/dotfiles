@@ -24,4 +24,11 @@ config add <modified-file>
 config commit <modified-file>
 ```
 
-Proper display of vim-airline characters and starship prompt indicators will require a nerd-patched font. This can be installed from: https://github.com/ryanoasis/nerd-fonts
+Proper display of nvim status bar characters and starship prompt indicators will require a nerd-patched font. This can be installed from: https://github.com/ryanoasis/nerd-fonts
+
+## neovim
+
+The NvChad distribution is packaged as a submodule, and a custom configuration is included in `.config/nvchad/custom`. To enable it, symlink it into the submodule:
+```sh
+ln -s $HOME/.config/nvchad/custom $HOME/.config/nvim/lua
+```
