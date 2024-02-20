@@ -94,12 +94,9 @@ done
 
 
 # Use starship prompt
-eval "$(starship init zsh)"
+type starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 # Setup zoxide
-eval "$(zoxide init zsh)"
-
-# Enable autompletion in renku
-#eval "$(_RENKU_COMPLETE=zsh_source renku)"
+type zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
 
 #zprof
 
