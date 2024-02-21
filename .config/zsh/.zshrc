@@ -73,8 +73,8 @@ for plugin ($plugins); do
 done
 
 
-if [ -f ~/.config/conda/conda_init.sh ]; then
-    source ~/.config/conda/conda_init.sh
+if [ -f ~/.config/mamba/mamba_init.sh ]; then
+    source ~/.config/mamba/mamba_init.sh
 fi
 
 # Push 'v' in command mode to enter a vim buffer and edit command
