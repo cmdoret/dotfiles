@@ -14,9 +14,12 @@ plugins=(
 
 # Load all stock functions (from $fpath files) called below.
 fpath+=$XDG_CONFIG_HOME/zsh/zfunc
-autoload -Uz compinit promptinit
-compinit
-promptinit
+autoload -Uz compinit #promptinit
+# perf: only check/regenerate cache if older than 24h
+for dump in $HOME/.config/zsh/.zcompdump(N.mh+24); do
+  compinit
+done
+# promptinit # if starship is used, promptinit is not needed
 
 # User configuration
 unsetopt AUTO_CD
