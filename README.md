@@ -2,8 +2,18 @@
 
 This repository contains my configuration files for most programs.
 
-I manage those files using GNU stow.
+I manage those files using [GNU stow](https://www.gnu.org/software/stow).
 The paths of my config files follow the [XDG base directory specification](https://wiki.archlinux.org/index.php/XDG_Base_Directory) to avoid cluttering the home directory.
+
+## Dependencies
+
+Only git and stow are needed to setup the repo.
+
+```sh
+# debian-based
+apt install stow git
+```
+
 
 ## Installation
 
