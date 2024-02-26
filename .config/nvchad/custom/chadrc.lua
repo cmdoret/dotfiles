@@ -12,6 +12,9 @@ M.ui = {
 
 M.plugins = "custom.plugins"
 
+-- relative line numbers by default
+vim.opt.rnu = true
+
 -- M.mapings = require "custom.mappings"
 
 return M
