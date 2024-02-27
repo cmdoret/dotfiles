@@ -7,6 +7,13 @@ local plugins = {
     end,
   },
   {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      local opts = require "custom.configs.cmp"
+      require("cmp").setup(opts)
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
@@ -39,17 +46,25 @@ local plugins = {
     },
   },
   {
-    "github/copilot.vim",
-    lazy = false,
+    "zbirenbaum/copilot.lua",
+    event = { "BufEnter" },
     config = function()
-      -- Mapping tab is already used by NvChad
-      vim.g.copilot_no_tab_map = true;
-      vim.g.copilot_assume_mapped = true;
-      vim.g.copilot_tab_fallback = "";
-      -- The mapping is set to other key, see custom/lua/mappings
-      -- or run <leader>ch to see copilot mapping section
-    end
+      require("copilot").setup({
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      })
+    end,
   },
+  {
+    "zbirenbaum/copilot-cmp",
+    event = { "BufEnter" },
+    dependencies = { "zbirenbaum/copilot.lua" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+  }
 }
 
 return plugins
+
+
