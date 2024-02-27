@@ -1,5 +1,12 @@
 local plugins = {
   {
+    "hrsh7th/nvim-cmp",
+    config = function()
+      local opts = require "custom.configs.cmp"
+      require("cmp").setup(opts)
+    end,
+  },
+  {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
     build = function()
@@ -19,13 +26,6 @@ local plugins = {
     end,
   },
   {
-    "hrsh7th/nvim-cmp",
-    config = function()
-      local opts = require "custom.configs.cmp"
-      require("cmp").setup(opts)
-    end,
-  },
-  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
@@ -37,6 +37,10 @@ local plugins = {
         "rust",
       }
     }
+  },
+  {
+    "szw/vim-maximizer",
+    event = { "WinEnter" },
   },
   {
     "williamboman/mason.nvim",
