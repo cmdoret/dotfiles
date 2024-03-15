@@ -13,6 +13,22 @@ font pango:FiraCode Nerd Font 14
 
 ### Output configuration
 output * bg "$HOME/Pictures/wallpapers/pine.jpg" fill
+
+### colors
+
+set $cl_high #268bd2
+set $cl_indi #d9d8d8
+set $cl_back #231f20
+set $cl_fore #d9d8d8
+set $cl_urge #ee2e24
+
+# Colors                border   bg       text     indi     childborder
+client.focused          $cl_high $cl_high $cl_fore $cl_indi $cl_high
+client.focused_inactive $cl_back $cl_back $cl_fore $cl_back $cl_back
+client.unfocused        $cl_back $cl_back $cl_fore $cl_back $cl_back
+client.urgent           $cl_urge $cl_urge $cl_fore $cl_urge $cl_urge
+
+
 ### Idle configuration
 # Lock screen after 5min idle + Turn off display after 5min more + lock before sleep
 exec swayidle -w \
@@ -123,6 +139,8 @@ bindsym $mod+minus scratchpad show
 bindsym $mod+Shift+minus move scratchpad
 
 # Layout
+titlebar_border_thickness 1
+titlebar_padding 1 1
 
 # toggle split in horizontal/vertical orientation
 bindsym $mod+v split toggle
