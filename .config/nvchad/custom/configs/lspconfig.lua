@@ -12,6 +12,12 @@ local servers = {
   "pyright",
   "rust_analyzer",
 }
+-- Copy capabilities list but exclude 'semanticTokensProvider' from it
+for k, v in pairs(capabilities) do
+  if k ~= "semanticTokensProvider" then
+    capabilities[k] = v
+  end
+end
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
