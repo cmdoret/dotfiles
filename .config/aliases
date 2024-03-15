@@ -40,7 +40,7 @@ alias cp="cp -i"                          # confirm before overwriting something
 alias sudo='sudo '                        # space at the end allows evaluation of a second alias
 # Substitute other utilities with cool commands if available
 type bat >/dev/null 2>&1 && alias cat='bat'
-type pydf >/dev/null 2>&1 && alias df='pydf'
+type duf >/dev/null 2>&1 && alias df='duf'
 
 ex ()
 {
