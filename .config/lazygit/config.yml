@@ -1,0 +1,7 @@
+customCommands:
+  - key: "C"
+    command: "commit"
+    description: "commit with alt-art/commit"
+    context: "files"
+    loadingText: "opening commit tool"
+    subprocess: true
