@@ -10,10 +10,10 @@ alias v='nvim'
 # Git
 alias gb='git branch'
 alias ga='git add'
-alias gc='git commit'
 alias gs='git status'
 alias gp='git push'
 alias gl='git pull'
+type commit >/dev/null 2>&1 && alias gc="commit" || alias gc='git commit'
 
 # Fancy git log
 
