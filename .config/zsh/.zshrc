@@ -103,4 +103,3 @@ type zoxide >/dev/null 2>&1 && eval "$(zoxide init --cmd cd zsh)"
 
 #zprof
 
-export KUBECONFIG="$HOME/.kube/config-sdscuser"
