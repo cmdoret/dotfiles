@@ -49,6 +49,7 @@ export HISTFILE=~/.config/zsh/.histfile
 export HISTSIZE=1000000 # Num items in local hist list
 export SAVEHIST=1000000 # Max num items in hist file
 
+setopt HIST_IGNORE_SPACE # Don't put commands starting with space in history
 setopt HIST_IGNORE_ALL_DUPS # Don't put duplicates in history list
 setopt HIST_SAVE_NO_DUPS # Don't savec duplicates in history file
 setopt HIST_REDUCE_BLANKS # Remove unnecessary blanks
