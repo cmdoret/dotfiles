@@ -10,7 +10,7 @@
 
 function catimg() {
   if [[ -x  `which convert` ]]; then
-    zsh $ZSH/plugins/catimg/catimg.sh $@
+    zsh $ZDOTDIR/plugins/catimg/catimg.sh $@
   else
     echo "catimg need convert (ImageMagick) to work)"
   fi
