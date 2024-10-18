@@ -31,6 +31,7 @@ local plugins = {
       ensure_installed = {
         "bash",
         "go",
+        "groovy",
         "just",
         "markdown",
         "python",
