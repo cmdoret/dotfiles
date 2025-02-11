@@ -10,5 +10,5 @@ else
 fi
 unset __mamba_setup
 # <<< mamba initialize <<<
-micromamba activate py311
+micromamba activate py313
 
