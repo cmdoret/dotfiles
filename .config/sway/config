@@ -16,7 +16,7 @@ output * bg "$HOME/Pictures/wallpapers/pine.jpg" fill
 
 ### colors
 
-set $cl_high #268bd2
+set $cl_high #262b42
 set $cl_indi #d9d8d8
 set $cl_back #231f20
 set $cl_fore #d9d8d8
@@ -54,8 +54,10 @@ input type:touchpad {
 # Basics
 
 bindsym $mod+t exec $term # terminal
-bindsym $mod+Return exec $term # terminal
+bindsym $mod+f exec thunar
+bindsym $mod+b exec firefox
 bindsym $mod+d exec $menu # program launcher
+bindsym $mod exec $menu # program launcher
 bindsym $mod+q kill # kill focus window
 
 # reload the configuration file
@@ -67,10 +69,10 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. 
 #
 # Take a screenshot
 bindsym --release Print exec "grimshot --notify copy screen"
-bindsym Mod4+p       exec grimshot save active
-bindsym Mod4+Shift+p exec grimshot save area
-bindsym Mod4+Mod1+p  exec grimshot save output
-bindsym Mod4+Ctrl+p  exec grimshot save window
+bindsym $mod+p       exec grimshot --notify save active
+bindsym Mod4+Shift+p exec grimshot --notify save area
+bindsym Mod4+Mod1+p  exec grimshot --notify save output
+bindsym Mod4+Ctrl+p  exec grimshot --notify save window
 bindsym --release $mod+Print exec "scrot -s -m $HOME/scrsht.png && xclip -selection clipboard -t image/png $HOME/scrsht.png && rm $HOME/scrsht.png"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -148,15 +150,15 @@ titlebar_border_thickness 1
 titlebar_padding 1 1
 
 # toggle split in horizontal/vertical orientation
-bindsym $mod+v split toggle
+bindsym $mod+e split toggle
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+o layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -238,16 +240,16 @@ mode "$mode_system" {
 bindsym $mod+Shift+s  mode "$mode_system"
 
 # Multimedia keys support
-# Set key for brightness
+# Set key for brightnes
 bindsym --locked XF86MonBrightnessUp exec brightnessctl s +5%
 bindsym --locked XF86MonBrightnessDown exec brightnessctl s 5%-
 
 # audio shortcuts 
-bindsym XF86AudioMute exec  amixer set Master toggle
-bindsym XF86AudioRaiseVolume exec  amixer set Master 5%+ 
-bindsym XF86AudioLowerVolume exec  amixer set Master 5%- 
+bindsym XF86AudioMute exec  amixer -D pulse set Master toggle
+bindsym XF86AudioRaiseVolume exec  amixer -D pulse set Master 5%+ 
+bindsym XF86AudioLowerVolume exec  amixer -D pulse set Master 5%- 
 # toggle microphone
-bindsym XF86AudioMicMute exec  amixer set Capture toggle
+bindsym XF86AudioMicMute exec  amixer -D pulse set Capture toggle
 
 
 # Gaps settings
