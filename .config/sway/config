@@ -148,6 +148,7 @@ bindsym $mod+Shift+minus move scratchpad
 # Layout
 titlebar_border_thickness 1
 titlebar_padding 1 1
+title_align center
 
 # toggle split in horizontal/vertical orientation
 bindsym $mod+e split toggle
@@ -225,10 +226,10 @@ bar {
 
 set $mode_system System (l) lock, (e) log out, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec 'swaylock', mode "default"
+    bindsym l exec 'swaylock -c 222222', mode "default"
     bindsym e exec 'swaymsg exit', mode "default"
-    bindsym s exec 'swaylock -f && systemctl suspend', mode "default"
-    bindsym h exec 'swaylock -f && systemctl hibernate', mode "default"
+    bindsym s exec 'swaylock -f -c 222222 && systemctl suspend', mode "default"
+    bindsym h exec 'swaylock -f -c 222222 && systemctl hibernate', mode "default"
     bindsym r exec 'systemctl reboot', mode "default"
     bindsym Shift+s exec "systemctl poweroff', mode "default"
 
@@ -238,6 +239,7 @@ mode "$mode_system" {
 
 }
 bindsym $mod+Shift+s  mode "$mode_system"
+bindsym $mod+Escape exec 'swaylock --color 222222'
 
 # Multimedia keys support
 # Set key for brightnes
