@@ -13,6 +13,10 @@ font pango:FiraCode Nerd Font 12
 
 ### Output configuration
 output * bg "$HOME/Pictures/wallpapers/pine.jpg" fill
+# default output
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
 
 ### colors
 
@@ -32,9 +36,9 @@ client.urgent           $cl_urge $cl_urge $cl_fore $cl_urge $cl_urge
 ### Idle configuration
 # Lock screen after 5min idle + Turn off display after 5min more + lock before sleep
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
+         timeout 300 "swaylock -f -c 262b42" \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep "swaylock -f -c 262b42"
 
 ### Input configuration
 
@@ -226,10 +230,10 @@ bar {
 
 set $mode_system System (l) lock, (e) log out, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec 'swaylock -c 222222', mode "default"
+    bindsym l exec "swaylock -c 262b42", mode "default"
     bindsym e exec 'swaymsg exit', mode "default"
-    bindsym s exec 'swaylock -f -c 222222 && systemctl suspend', mode "default"
-    bindsym h exec 'swaylock -f -c 222222 && systemctl hibernate', mode "default"
+    bindsym s exec "swaylock -f -c 262b42 && systemctl suspend", mode "default"
+    bindsym h exec "swaylock -f -c 262b42 && systemctl hibernate", mode "default"
     bindsym r exec 'systemctl reboot', mode "default"
     bindsym Shift+s exec "systemctl poweroff', mode "default"
 
@@ -239,7 +243,7 @@ mode "$mode_system" {
 
 }
 bindsym $mod+Shift+s  mode "$mode_system"
-bindsym $mod+Escape exec 'swaylock --color 222222'
+bindsym $mod+Escape exec "swaylock --color 262b42"
 
 # Multimedia keys support
 # Set key for brightnes
@@ -312,3 +316,4 @@ exec udiskie -ans &
 # enable international US keyboard
 include /etc/sway/config.d/*
 exec systemctl --user import-environment
+exec_always nm-applet --indicator
