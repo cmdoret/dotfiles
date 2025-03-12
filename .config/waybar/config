@@ -97,21 +97,20 @@
 		"interval": 5,
 		"format": "CPU {usage:2}%"
 	},
-	"battery": {
-		"states": {
-			"good": 95,
-			"warning": 30,
-			"critical": 15
-		},
-		"format": "{icon} {capacity}%",
-		"format-icons": [
-			"",
-			"",
-			"",
-			"",
-			""
-		]
-	},
+  "battery": {
+     "format": "{icon} {capacity}% - {time}",
+     "format-icons": ["", "", "", "", ""],
+     "format-time": "{H}h{M}m",
+     "format-charging": " {capacity}% - {time}",
+     "format-full": " {icon}  Charged",
+     "interval": 30,
+     "states": {
+       "warning": 25,
+       "critical": 10
+     },
+     "tooltip": false,
+     "on-click": "2"
+  },
 	"disk": {
 		"interval": 5,
 		"format": "Disk {percentage_used:2}%",
