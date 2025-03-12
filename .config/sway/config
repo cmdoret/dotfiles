@@ -317,3 +317,4 @@ exec udiskie -ans &
 include /etc/sway/config.d/*
 exec systemctl --user import-environment
 exec_always nm-applet --indicator
+exec_always mako
