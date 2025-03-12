@@ -98,17 +98,18 @@
 		"format": "CPU {usage:2}%"
 	},
   "battery": {
-     "format": "{icon} {capacity}% - {time}",
+     "format": "{icon}  {capacity}%",
      "format-icons": ["", "", "", "", ""],
      "format-time": "{H}h{M}m",
-     "format-charging": " {capacity}% - {time}",
-     "format-full": " {icon}  Charged",
+     "format-charging": " {capacity}%",
+     "format-full": " {icon} {capacity}%",
      "interval": 30,
      "states": {
        "warning": 25,
        "critical": 10
      },
-     "tooltip": false,
+     "tooltip": true,
+    "tooltip-format": "Time left: {time}",
      "on-click": "2"
   },
 	"disk": {
@@ -117,6 +118,7 @@
 		"path": "/"
 	},
 	"tray": {
-		"icon-size": 20
+		"icon-size": 20,
+    "spacing": 4
 	}
 }
