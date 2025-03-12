@@ -14,10 +14,10 @@
 		"clock#1",
 		"custom/left-arrow-light",
 		"custom/left-arrow-dark",
-		"clock#2",
+		"custom/distro",
 		"custom/right-arrow-dark",
 		"custom/right-arrow-light",
-		"clock#3",
+		"clock#2",
 		"custom/right-arrow-dark"
 	],
 	"modules-right": [
@@ -61,16 +61,16 @@
 		"disable-scroll": true,
 		"format": "{name}"
 	},
-	"lock#1": {
-		"format": "{:%a}",
+	"clock#1": {
+		"format": " {:%H:%M}",
+		"tooltip": false
+	},
+	"custom/distro": {
+		"format": "  ",
 		"tooltip": false
 	},
 	"clock#2": {
-		"format": "{:%H:%M}",
-		"tooltip": false
-	},
-	"clock#3": {
-		"format": "{:%m-%d}",
+		"format": "{:%a %m-%d}",
 		"tooltip": false
 	},
 
