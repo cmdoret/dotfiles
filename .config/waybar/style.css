@@ -4,7 +4,7 @@
 }
 
 window#waybar {
-	background: #262b42;
+	background: #292b2e;
 	color: #fdf6e3;
 }
 
@@ -14,7 +14,7 @@ window#waybar {
 }
 #custom-right-arrow-light,
 #custom-left-arrow-light {
-	color: #262b42;
+	color: #292b2e;
 	background: #1a1a1a;
 }
 
@@ -36,7 +36,7 @@ window#waybar {
 	color: #fdf6e3;
 }
 #workspaces button.focused {
-	color: #268bd2;
+	color: #39cdf5;
 }
 #workspaces button:hover {
 	box-shadow: inherit;
