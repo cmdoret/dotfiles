@@ -12,7 +12,7 @@ set $menu rofi -show drun
 font pango:FiraCode Nerd Font 12
 
 ### Output configuration
-output * bg "$HOME/Pictures/wallpapers/pine.jpg" fill
+output * bg "$HOME/Pictures/wallpapers/voxels3d.png" fill
 # default output
 set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
@@ -20,7 +20,7 @@ bindswitch --reload --locked lid:off output $laptop enable
 
 ### colors
 
-set $cl_high #262b42
+set $cl_high #292b2e
 set $cl_indi #d9d8d8
 set $cl_back #231f20
 set $cl_fore #d9d8d8
@@ -299,7 +299,7 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-smart_gaps on
+smart_gaps off
 # Assign specific workspaces to programs here
 assign [instance="Navigator"] $workspace2
 assign [class="Chromium|Firefox|qutebrowser"] $workspace2
@@ -311,7 +311,7 @@ for_window [class="Spotify"] move to workspace $workspace8
 #Define program-specific behaviour here
 for_window [class="^.*"] border pixel 2
 for_window [class="feh|Vlc|mpv|freecad"] floating enable focus 
-exec udiskie -ans &
+exec udiskie -ans
 
 # enable international US keyboard
 include /etc/sway/config.d/*
