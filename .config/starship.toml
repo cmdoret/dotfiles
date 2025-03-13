@@ -1,5 +1,5 @@
 # Inserts a blank line between shell prompts
-add_newline = true
+add_newline = false
 command_timeout = 2000
 
 
@@ -14,6 +14,7 @@ symbol = "  "
 
 [conda]
 symbol = " "
+format = 'in [$symbol$environment]($style) '
 
 [dart]
 symbol = " "
@@ -73,6 +74,7 @@ symbol = " "
 
 [rust]
 symbol = " "
+format = 'via [$symbol($version)]($style) '
 
 [rlang]
 symbol = " "
