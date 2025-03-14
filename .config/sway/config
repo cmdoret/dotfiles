@@ -72,12 +72,12 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 #
 # Take a screenshot
+# ctrl saves to file
 bindsym --release Print exec "grimshot --notify copy screen"
-bindsym $mod+p       exec grimshot --notify save active
-bindsym Mod4+Shift+p exec grimshot --notify save area
-bindsym Mod4+Mod1+p  exec grimshot --notify save output
-bindsym Mod4+Ctrl+p  exec grimshot --notify save window
-bindsym --release $mod+Print exec "scrot -s -m $HOME/scrsht.png && xclip -selection clipboard -t image/png $HOME/scrsht.png && rm $HOME/scrsht.png"
+bindsym $mod+p       exec grimshot --notify copy screen
+bindsym $mod+Ctrl+p       exec grimshot --notify save screen
+bindsym $mod+Shift+p exec grimshot --notify copy area
+bindsym $mod+Shift+Ctrl+p exec grimshot --notify save area
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod normal
