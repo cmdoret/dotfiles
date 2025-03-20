@@ -2,7 +2,7 @@
 # Sourced by zshenv or bashrc to set environment variables
 
 # Default programs
-export EDITOR="vim"
+export EDITOR="nvim"
 export BROWSER="firefox"
 
 # Move config files to .config dir to keep ~ clean
