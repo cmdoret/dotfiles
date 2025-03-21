@@ -98,11 +98,11 @@
 		"format": "CPU {usage:2}%"
 	},
   "battery": {
-     "format": "{icon}  {capacity}%",
+     "format": "{icon}  {capacity:3}%",
      "format-icons": ["", "", "", "", ""],
      "format-time": "{H}h{M}m",
-     "format-charging": " {capacity}%",
-     "format-full": " {icon} {capacity}%",
+     "format-charging": " {capacity:3}%",
+     "format-full": " {icon} {capacity:4}%",
      "interval": 30,
      "states": {
        "warning": 25,
