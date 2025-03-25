@@ -11,6 +11,14 @@ M.general = {
 M.maximizer = {
   n = {
     ["<leader>mm"] = {"<cmd> MaximizerToggle <CR>", "Maximize"},
+    -- no clipboard override when pressing c, s, x or del
+    ["s"] = { '"_s', remap = false },
+    ["S"] = { '"_S', remap = false },
+    ["x"] = { '"_x', remap = false },
+    ["X"] = { '"_x', remap = false },
+    ["c"] = { '"_c', remap = false },
+    ["C"] = { '"_c', remap = false },
+    ["<Del>"] = { '"_x', remap = false },
   },
 }
 
