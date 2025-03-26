@@ -6,13 +6,13 @@
 
     bg0:     #2B3339;
     bg1:     #323D43;
-    fg0:     #D3C6AA;
+    fg0:     #292B2E;
 
-    accent-color:     #A7C080;
-    urgent-color:     #DBBC7F;
+    accent-color:     #45A5C0;
+    urgent-color:     #FF6666;
 
     background-color:   transparent;
-    text-color:         @fg0;
+    text-color:         #AAAAAA;
 
     margin:     0;
     padding:    0;
@@ -60,7 +60,12 @@ element {
 }
 
 element normal normal {
-    text-color: @fg0;
+    text-color: @text-color;
+    background-color: @bg0;
+}
+element alternate normal {
+    text-color: @text-color;
+    background-color: @bg1;
 }
 
 element normal urgent {
@@ -68,11 +73,11 @@ element normal urgent {
 }
 
 element normal active {
-    text-color: @accent-color;
+    text-color: @bg0;
 }
 
 element alternate active {
-    text-color: @accent-color;
+    text-color: @bg0;
 }
 
 element selected {
