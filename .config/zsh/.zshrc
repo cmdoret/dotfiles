@@ -8,6 +8,7 @@
 
 plugins=(
   catimg
+  direnv
   vi-mode
 )
 
