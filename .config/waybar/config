@@ -98,7 +98,7 @@
 		"format": " {usage:2}%"
 	},
   "battery": {
-     "format": "{icon}  {capacity:3}%",
+     "format": "{icon} {capacity:3}%",
      "format-icons": ["", "", "", "", ""],
      "format-time": "{H}h{M}m",
      "format-charging": " {capacity:3}%",
