@@ -102,7 +102,7 @@
      "format-icons": ["", "", "", "", ""],
      "format-time": "{H}h{M}m",
      "format-charging": " {capacity:2}%",
-     "format-full": " {icon} {capacity:4}%",
+     "format-full": " {capacity:3}%",
      "interval": 30,
      "states": {
        "warning": 25,
