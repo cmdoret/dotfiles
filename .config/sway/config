@@ -109,13 +109,13 @@ bindsym $mod+Shift+Right move right
 
 # Workspaces
 
-set $workspace1 "1 "
-set $workspace2 "2 󰈹"
-set $workspace3 "3 "
-set $workspace4 "4 "
-set $workspace5 "5 "
-set $workspace6 "6 󰝚"
-set $workspace7 "7 󱘶"
+set $workspace1 "1 󰈹"
+set $workspace2 "2 "
+set $workspace3 "3 "
+set $workspace4 "4 "
+set $workspace5 "5 󱘶"
+set $workspace6 "6 "
+set $workspace7 "7 󰝚"
 set $workspace8 "8 "
 set $workspace9 "9 "
 set $workspace10 "10 "
@@ -301,11 +301,9 @@ mode "$mode_gaps_outer" {
 }
 smart_gaps off
 # Assign specific workspaces to programs here
-assign [instance="Navigator"] $workspace2
-assign [class="Chromium|Firefox|qutebrowser"] $workspace2
-assign [class="Soffice|calibre|libreoffice-writer|libreoffice-calc"] $workspace3
+assign [class="Chromium|Firefox|qutebrowser"] $workspace1
+assign [class="Logseq|Soffice|calibre|libreoffice-writer|libreoffice-calc"] $workspace2
 assign [instance="libreoffice"] $workspace3
-assign [class="Wine|Steam"] $workspace4
 for_window [class="Spotify"] move to workspace $workspace8
 
 #Define program-specific behaviour here
