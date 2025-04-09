@@ -12,7 +12,7 @@ set $menu rofi -show drun -show-icons
 font pango:FiraCode Nerd Font 12
 
 ### Output configuration
-output * bg "$HOME/Pictures/wallpapers/voxels3d.png" fill
+output * bg "$HOME/Pictures/wallpapers/forest-fog.jpg" fill
 # default output
 set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
