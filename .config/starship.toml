@@ -11,6 +11,7 @@ error_symbol = "[x](bold red)"
 
 [aws]
 symbol = "  "
+disabled = true
 
 [conda]
 symbol = " "
