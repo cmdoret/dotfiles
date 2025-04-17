@@ -15,7 +15,7 @@ disabled = true
 
 [conda]
 symbol = " "
-format = 'in [$symbol$environment]($style) '
+format = '[$symbol$environment]($style) '
 
 [dart]
 symbol = " "
@@ -23,6 +23,7 @@ symbol = " "
 [directory]
 read_only = " "
 truncation_length = 1
+format = 'in [$path]($style)[$read_only]($read_only_style) '
 
 [docker_context]
 symbol = " "
@@ -35,12 +36,17 @@ symbol = " "
 
 [git_branch]
 symbol = " "
+format = '[$symbol$branch]($style) '
 
 [golang]
 symbol = " "
 
 [hg_branch]
 symbol = " "
+
+[hostname]
+ssh_symbol = '🌐'
+format = '[$ssh_symbol$hostname]($style) ' 
 
 [java]
 symbol = " "
@@ -56,6 +62,7 @@ symbol = " "
 
 [nix_shell]
 symbol = " "
+format= '[$symbol$state( \($name\))]($style) '
 
 [package]
 disabled = true
@@ -75,7 +82,7 @@ symbol = " "
 
 [rust]
 symbol = " "
-format = 'via [$symbol($version)]($style) '
+format = '[$symbol($version)]($style) '
 
 [rlang]
 symbol = " "
@@ -86,3 +93,5 @@ symbol = " "
 [swift]
 symbol = "ﯣ "
 
+[username]
+format = '[$user]($style) '
