@@ -23,7 +23,7 @@ symbol = " "
 [directory]
 read_only = " "
 truncation_length = 1
-format = 'in [$path]($style)[$read_only]($read_only_style) '
+format = '[ $path]($style)[$read_only]($read_only_style) '
 
 [docker_context]
 symbol = " "
