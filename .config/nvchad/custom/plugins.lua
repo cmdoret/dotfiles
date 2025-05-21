@@ -82,6 +82,12 @@ local plugins = {
     end,
   },
   {
+		"mcauley-penney/visual-whitespace.nvim",
+		config = true,
+		event = "ModeChanged *:[vV\22]", -- optionally, lazy load on entering visual mode
+		opts = {},
+	},
+  {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
